@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +37,6 @@ public class Usuario implements UserDetails {
 		this.enabled = enabled;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public Usuario(String name, String username, String password, List roles) {
 		super();
 		this.name = name;
@@ -44,7 +45,6 @@ public class Usuario implements UserDetails {
 		this.roles = roles;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public Usuario(Integer id, String name, String username, String password, String confirmPassword, String email,
 			boolean enabled, Calendar cadastro, List roles) {
 		super();
@@ -84,13 +84,11 @@ public class Usuario implements UserDetails {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar cadastro;
 	
-	@SuppressWarnings("rawtypes")
 	@JsonIgnore
 	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List roles;
+	private List<Role> roles;
 	
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
