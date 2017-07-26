@@ -25,7 +25,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 				.antMatchers("/")
 					.permitAll()
-				.antMatchers("/console/**")
+				.antMatchers("/tarefa","/console","/console/**")
 					.permitAll()
 				.antMatchers("/h2/**")
 					.permitAll()
@@ -54,7 +54,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.invalidateHttpSession(true)
 				.permitAll();
 				
+		
 				http.csrf().disable();
+				http.authorizeRequests().anyRequest().fullyAuthenticated();
 				http.headers().frameOptions().disable();
 	}
 }
