@@ -10,23 +10,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
 
-//@Configuration
+@Configuration
 public class JpaConfiguration {
 
 	@Bean(initMethod = "migrate")
-	public Flyway flywayStructure() {
-		final Flyway flyway = new Flyway();
-		flyway.setLocations("classpath:db/structure");
-		flyway.setDataSource(getDataSource());
-		return flyway;
-	}
-
-	@DependsOn("flywayStructure")
-	@Bean(initMethod = "migrate")
 	public Flyway flywayInitData() {
 		final Flyway flyway = new Flyway();
-		flyway.setLocations("classpath:db/migration/data");
-		flyway.setTable("schema_data_version");
+		flyway.setSchemas("SCHEMA_TAREFA");
+		flyway.setLocations("classpath:db/migration");
+		flyway.setBaselineOnMigrate(true);
+		flyway.setTable("schema_data_versions");
 		flyway.setDataSource(getDataSource());
 		return flyway;
 	}
