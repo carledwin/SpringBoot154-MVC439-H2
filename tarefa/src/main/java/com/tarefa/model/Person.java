@@ -1,7 +1,12 @@
 package com.tarefa.model;
 
-public class Person {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Person {
+	
+	@Id
 	private String name;
 	private String surname;
 	
