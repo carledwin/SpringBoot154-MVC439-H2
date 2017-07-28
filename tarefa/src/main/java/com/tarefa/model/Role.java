@@ -28,6 +28,14 @@ public class Role implements GrantedAuthority {
 	@JsonIgnore
 	private Usuario usuario;
 
+	public Role(Usuario usuario, Module name) {
+		this.usuario = usuario;
+		this.name = name;
+	}
+	
+	public Role() {
+	}
+	
 	@Override
 	public String getAuthority() {
 		return name.toString();

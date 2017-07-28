@@ -29,15 +29,14 @@ public class Usuario implements UserDetails {
 	public Usuario() {
 	}
 	
-	public Usuario(String username, String password, List roles, boolean enabled) {
+	public Usuario(String username, String password, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
 		this.enabled = enabled;
 	}
 	
-	public Usuario(String name, String username, String password, List roles) {
+	public Usuario(String name, String username, String password, List<Role> roles) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -46,7 +45,7 @@ public class Usuario implements UserDetails {
 	}
 	
 	public Usuario(Integer id, String name, String username, String password, String confirmPassword, String email,
-			boolean enabled, Calendar cadastro, List roles) {
+			boolean enabled, Calendar cadastro, List<Role> roles) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -147,8 +146,7 @@ public class Usuario implements UserDetails {
 		return roles;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setRoles(List roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

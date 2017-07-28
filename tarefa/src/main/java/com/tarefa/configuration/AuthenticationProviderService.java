@@ -1,6 +1,7 @@
 package com.tarefa.configuration;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.tarefa.model.Role;
 import com.tarefa.model.Usuario;
 
 @Component
@@ -19,8 +21,11 @@ public class AuthenticationProviderService implements AuthenticationProvider {
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		
 		//FIXME Somente para test
-		String[] roles = {"ROLE_USUARIO"};
-		Usuario usuario = new Usuario(auth.getName(), auth.getCredentials().toString(), Arrays.asList(roles), true);
+		List<Role> roles = new ArrayList<>();
+		roles.add(new Role());
+		
+		Usuario usuario = new Usuario(auth.getName(), auth.getCredentials().toString(), true);
+		usuario.setRoles(roles);
 		
 		if(usuario != null){
 			if(usuario.isEnabled()){
