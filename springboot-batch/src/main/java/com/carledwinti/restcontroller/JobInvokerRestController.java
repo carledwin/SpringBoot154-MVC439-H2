@@ -1,5 +1,8 @@
 package com.carledwinti.restcontroller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -21,11 +24,13 @@ public class JobInvokerRestController {
 	@Autowired
 	private Job processJob;
 	
+	private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	
 	@RequestMapping("/invokeJob")
 	public String handle() throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
 		JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
 		jobLauncher.run(processJob, jobParameters);
-		return "BATCH JOB HAS BEEN INVOKED....";
+		return "BATCH JOB HAS BEEN INVOKED at " + format.format(Calendar.getInstance().getTime()) +" ....";
 	}
 	
 }
